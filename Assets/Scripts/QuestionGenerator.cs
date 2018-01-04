@@ -21,13 +21,13 @@ public class QuestionGenerator : MonoBehaviour
 
 	public enum Level
 	{
-		ADD,
-		SUB,
-		MUL,
-		DIV,
-		ADD_SUB,
-		ADD_SUB_MUL,
-		ALL
+		ADD = 0,
+		SUB = 1,
+		MUL = 2,
+		DIV = 3,
+		ADD_SUB = 4,
+		ADD_SUB_MUL = 5,
+		ALL = 6
 
 	}
 	public TextMeshProUGUI historyTxt;

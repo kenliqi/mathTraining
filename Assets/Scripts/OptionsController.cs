@@ -23,6 +23,8 @@ public class OptionsController : MonoBehaviour {
 		GlobalSettings.level = (QuestionGenerator.Level)Enum.Parse(typeof(QuestionGenerator.Level), level, true);
 	}
 
-
+	public void Dropdown_IndexChanged(int index) {
+		GlobalSettings.level = (QuestionGenerator.Level)(index);
+	}
 
 }
