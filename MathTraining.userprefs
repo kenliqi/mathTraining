@@ -1,9 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/QuestionGenerator.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/OptionsController.cs">
     <Files>
-      <File FileName="Assets/Scripts/QuestionGenerator.cs" Line="184" Column="4" />
-      <File FileName="Assets/Scripts/OptionsController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/QuestionGenerator.cs" Line="164" Column="3" />
+      <File FileName="Assets/Scripts/OptionsController.cs" Line="7" Column="22" />
       <File FileName="Assets/Scripts/MainMenu.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Question.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/QTree.cs" Line="1" Column="1" />
@@ -12,15 +12,13 @@
       <File FileName="Assets/Scripts/Scores.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Score.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/ScoreFactory.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PrimeNumbers.cs" Line="25" Column="4" />
-      <File FileName="Assets/Scripts/RandNode.cs" Line="4" Column="19" />
-      <File FileName="Assets/Scripts/Test.cs" Line="9" Column="7" />
+      <File FileName="Assets/Scripts/PrimeNumbers.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/RandNode.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Test.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <RunToCursorBreakpoint file="/Users/luckyli/Projects/mathTraining/Assets/Scripts/Test.cs" line="9" column="7" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
