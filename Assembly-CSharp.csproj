@@ -54,12 +54,16 @@
      <Compile Include="Assets\Scripts\GlobalSettings.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\OptionsController.cs" />
+     <Compile Include="Assets\Scripts\PrimeNumbers.cs" />
      <Compile Include="Assets\Scripts\QTree.cs" />
      <Compile Include="Assets\Scripts\QTreeBuilder.cs" />
      <Compile Include="Assets\Scripts\Question.cs" />
      <Compile Include="Assets\Scripts\QuestionGenerator.cs" />
-     <Compile Include="Assets\Scripts\QuestionPool.cs" />
      <Compile Include="Assets\Scripts\RandNode.cs" />
+     <Compile Include="Assets\Scripts\Score.cs" />
+     <Compile Include="Assets\Scripts\ScoreFactory.cs" />
+     <Compile Include="Assets\Scripts\Scores.cs" />
+     <Compile Include="Assets\Scripts\Test.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />

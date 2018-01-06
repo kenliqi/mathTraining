@@ -18,6 +18,14 @@ public class QuestionGenerator : MonoBehaviour
 	public TextMeshProUGUI answerTxt;
 	private Question question;
 	private static readonly System.Random rnd = new System.Random ();
+	private Scores score = new Scores();
+	private int answeredQuestions = 0;
+
+	public void restartGame() {
+		score = new Scores ();
+		answeredQuestions = 0;
+		generate ();
+	}
 
 	public enum Level
 	{
@@ -76,7 +84,7 @@ public class QuestionGenerator : MonoBehaviour
 		SceneManager.sceneLoaded -= OnSceneLoaded;
 	}
 
-	public void updateElapsedTime ()
+	public void scoreTheQuestion ()
 	{
 		if (stopWatch != null && stopWatch.IsRunning) {
 			stopWatch.Stop ();
@@ -121,7 +129,7 @@ public class QuestionGenerator : MonoBehaviour
 	public Question generate ()
 	{
 		//Record previous question
-		updateElapsedTime ();
+		scoreTheQuestion ();
 
 		string questionStr = "";
 		List<RandNode> opdNodes = new List<RandNode> ();
@@ -132,11 +140,19 @@ public class QuestionGenerator : MonoBehaviour
 		questionStr += rn.number.ToString ();
 
 		for (int i = 0; i < GlobalSettings.numberOfOperators - 1; i++) {
-			RandNode opd = getOpd (GlobalSettings.largestNum);
-			opdNodes.Add (opd);	
 			RandNode opr = getOps (GlobalSettings.level);
-			oprNodes.Add (opr);
 
+			/** Deal with divide, we only want integer for dividen **/
+			RandNode opd;
+			if (opr.type == QTree.Type.Div) {
+				opd = getValidDivisor (getPrevDiv(oprNodes, opdNodes, opdNodes.Count - 1));
+			} else {
+				opd = getOpd (GlobalSettings.largestNum);
+			}
+
+			//Add them in
+			opdNodes.Add(opd);
+			oprNodes.Add (opr);
 			questionStr += " " + QTree.getOperatorStr (opr.type) + " " + opd.number.ToString ();
 		}
 
@@ -155,6 +171,62 @@ public class QuestionGenerator : MonoBehaviour
 		stopWatch.Start ();
 
 		return question;
+	}
+
+	private int getPrevDiv(List<RandNode> operators, List<RandNode> operands, int i) {
+		int num = operands [i].number;
+		if (i == 0 || operators [i - 1].type != QTree.Type.Div)
+			return num;
+		else
+			return getPrevDiv (operators, operands, i - 1) / num;
+	}
+
+	private RandNode getValidDivisor(int number) {
+
+		Debug.Log ("Previous number for divide: " + number);
+
+		List<int> candidates = new List<int>(getCandidates (number));
+		int cou = rnd.Next (0, candidates.Count);
+		HashSet<int> indexes = new HashSet<int> ();
+		int divisor = 1;
+		Debug.Log ("Generate number from candiates of " + candidates);
+		while (cou >= 0) {
+			int idx = rnd.Next (0, candidates.Count);
+			if (indexes.Contains (idx))
+				continue;
+			indexes.Add (idx);
+			divisor *= candidates [idx];
+			cou--;
+		}
+		RandNode rNode = new RandNode();
+		rNode.number = divisor;
+		Debug.Log ("Generated divisor : " + divisor);
+		return rNode;
+	}
+
+	private LinkedList<int> getCandidates(int num) {
+		Debug.Log ("Get valid candidates for " + num);
+		int prime = getOnePrime (num);
+		Debug.Log ("One prime " + prime);
+		//Exit condition
+		if (prime >= num) {
+			LinkedList<int> link = new LinkedList<int> ();
+			link.AddLast (prime);
+			return link;
+		}
+		LinkedList<int> res = getCandidates (num / prime);
+			res.AddLast (prime);
+		return res;
+	}
+
+	private int getOnePrime(int num) {
+		foreach(int p in PrimeNumbers.primes) {
+			if (num % p == 0) {
+				return p;
+			}
+		}
+		Debug.LogError ("We didn't find any prime for this number" + num);
+		return num;
 	}
 
 	//Get a random operand
