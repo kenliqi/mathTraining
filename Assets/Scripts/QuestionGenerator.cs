@@ -173,6 +173,11 @@ public class QuestionGenerator : MonoBehaviour
 		return question;
 	}
 
+	public void inverseSign() {
+		answer = answer * -1;
+		refreshAnswer ();
+	}
+
 	private int getPrevDiv(List<RandNode> operators, List<RandNode> operands, int i) {
 		int num = operands [i].number;
 		if (i == 0 || operators [i - 1].type != QTree.Type.Div)
