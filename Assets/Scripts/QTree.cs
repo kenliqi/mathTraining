@@ -63,7 +63,7 @@ public class QTree
 	}
 	//Evaluate the question tree to get the answer
 	public double evaluate() {
-		Debug.Log ("Evaluation: " + value + " " + type);
+//		Debug.Log ("Evaluation: " + value + " " + type);
 		switch (type) {
 		case Type.Null:
 			return value;

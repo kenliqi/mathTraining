@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Math.unity
     guid: 4f0541fa36327ef46ae4ae8e1d0b7fd4
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 78349167d28044d13b7ba7f840a19051

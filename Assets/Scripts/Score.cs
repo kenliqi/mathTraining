@@ -12,6 +12,9 @@ public class Score
 
 	public bool correctAns { get; }
 
+	public Score() {
+	}
+
 	public Score (TimeSpan time, bool correctAns, bool noAnswer)
 	{
 		this.time = time;

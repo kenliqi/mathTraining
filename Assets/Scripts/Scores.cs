@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Scores : MonoBehaviour {
+public class Scores {
 	public List<Question> questions = new List<Question>();
 	public List<Score> answers = new List<Score>();
+
+	public Scores() {
+	}
 
 	public void scoreQuestion(TimeSpan time, Question newQuestion, long answer) {
 		questions.Add (newQuestion);

@@ -34,7 +34,7 @@ public class QTreeBuilder
 				opr.right = opdStack.Pop ();
 				opr.left = opdStack.Pop ();
 
-				Debug.Log (opr.type + " | " + opr.left.value + " | " + opr.right.value);
+//				Debug.Log (opr.type + " | " + opr.left.value + " | " + opr.right.value);
 
 				opdStack.Push (opr);
 			}
@@ -52,7 +52,7 @@ public class QTreeBuilder
 			opr.right = opdStack.Pop ();
 			opr.left = opdStack.Pop ();
 
-			Debug.Log (opr.type + " | " + opr.left.value + " | " + opr.right.value);
+//			Debug.Log (opr.type + " | " + opr.left.value + " | " + opr.right.value);
 
 			opdStack.Push (opr);
 		}
