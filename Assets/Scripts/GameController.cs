@@ -1,13 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
 
 	public int questionCloneDelay = 3;
 	public GameObject questionBallPrefab;
+	public TextMeshProUGUI answerTxt;
+	public TextMeshProUGUI scoreTxt;
+	private long answer;
 	public List<GameObject> questionBalls = new List<GameObject> ();
+
+	/*** Keyboard control ***/
+	private void refreshAnswer ()
+	{
+		answerTxt.text = answer.ToString (); 
+	}
+
+	public void onBtnClick (int i)
+	{
+		answer = answer * 10 + i;
+		refreshAnswer ();
+	}
+
+	public void clear ()
+	{
+		answerTxt.text = "?";
+		answer = 0;
+	}
+
+	public void inverseSign() {
+		answer = answer * -1;
+		refreshAnswer ();
+	}
+
+	public void go() {
+
+	}
+
+	public void hint() {
+	}
+	/*** End of Keyboard control ***/
 
 	public void generateQuestionBall ()
 	{
