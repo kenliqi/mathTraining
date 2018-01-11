@@ -2,21 +2,21 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameController.cs">
     <Files>
-      <File FileName="Assets/Scripts/QuestionGenerator.cs" Line="126" Column="9" />
-      <File FileName="Assets/Scripts/GameController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GameController.cs" Line="74" Column="38" />
       <File FileName="Assets/Scripts/Scores.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/QuestionBall.cs" Line="40" Column="29" />
-      <File FileName="Assets/Scripts/GlobalSettings.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/QuestionBall.cs" Line="6" Column="26" />
+      <File FileName="Assets/Scripts/QuestionGenerator.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GlobalSettings.cs" Line="10" Column="34" />
       <File FileName="Assets/Scripts/OptionsController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MainMenu.cs" Line="32" Column="3" />
-      <File FileName="Assets/Scripts/Question.cs" Line="11" Column="5" />
+      <File FileName="Assets/Scripts/MainMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Question.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/QTree.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/QTreeBuilder.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Score.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/ScoreFactory.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/PrimeNumbers.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/RandNode.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/QuestionFactory.cs" Line="4" Column="19" />
+      <File FileName="Assets/Scripts/QuestionFactory.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

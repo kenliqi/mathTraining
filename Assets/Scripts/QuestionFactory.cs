@@ -20,7 +20,7 @@ public class QuestionFactory
 		questionStr += rn.number.ToString ();
 
 		for (int i = 0; i < GlobalSettings.numberOfOperators - 1; i++) {
-			RandNode opr = getOps (GlobalSettings.level);
+			RandNode opr = getOps ();
 
 			/** Deal with divide, we only want integer for dividen **/
 			RandNode opd;
@@ -115,43 +115,21 @@ public class QuestionFactory
 
 
 	//Get a random operator
-	private static RandNode getOps (QuestionGenerator.Level level)
+	private static RandNode getOps ()
 	{
 		RandNode node = new RandNode ();
-		switch (level) {
-		case QuestionGenerator.Level.ADD:
-			node.type = QTree.Type.Add;
-			break;
-		case QuestionGenerator.Level.SUB:
-			node.type = QTree.Type.Sub;
-			break;
-		case QuestionGenerator.Level.MUL:
-			node.type = QTree.Type.Mul;
-			break;
-		case QuestionGenerator.Level.DIV:
-			node.type = QTree.Type.Div;
-			break;
-		case QuestionGenerator.Level.ADD_SUB:
-			int i = rnd.Next (0, 2);
-			node.type = i == 0 ? QTree.Type.Add : QTree.Type.Sub;
-			break;
-		case QuestionGenerator.Level.ADD_SUB_MUL:
-			i = rnd.Next (0, 3);
-			node.type = i == 0 ? QTree.Type.Add : i == 1 ? QTree.Type.Sub : QTree.Type.Mul;
-			break;
-		default:
-			i = rnd.Next (0, 4);
-			if (i == 0)
-				node.type = QTree.Type.Add;
-			else if (i == 1)
-				node.type = QTree.Type.Sub;
-			else if (i == 2)
-				node.type = QTree.Type.Mul;
-			else
-				node.type = QTree.Type.Div;
-			break;
+		List<QTree.Type> types = new List<QTree.Type> ();
+		if (GlobalSettings.hasAdd)
+			types.Add (QTree.Type.Add);
+		if (GlobalSettings.hasSub)
+			types.Add (QTree.Type.Sub);
+		if (GlobalSettings.hasMul)
+			types.Add (QTree.Type.Mul);
+		if (GlobalSettings.hasDiv)
+			types.Add (QTree.Type.Div);
 
-		}
+		int i = rnd.Next (0, types.Count);
+		node.type = types [i];
 		return node;
 	}
 

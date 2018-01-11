@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI answerTxt;
 	public TextMeshProUGUI scoreTxt;
 	private long answer;
+	private int score = 0;
 
 	/*** Keyboard control ***/
 	private void refreshAnswer ()
@@ -40,6 +41,7 @@ public class GameController : MonoBehaviour
 		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("QuestionBall")) {
 			QuestionBall q = obj.GetComponent<QuestionBall>();
 			if (q.question.verify (answer)) {
+				scoreTxt.text = (++score).ToString();
 				clear();
 				StartCoroutine(delayDestroy (obj));
 				return;
