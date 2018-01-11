@@ -11,7 +11,6 @@ public class GameController : MonoBehaviour
 	public TextMeshProUGUI answerTxt;
 	public TextMeshProUGUI scoreTxt;
 	private long answer;
-	public List<GameObject> questionBalls = new List<GameObject> ();
 
 	/*** Keyboard control ***/
 	private void refreshAnswer ()
@@ -38,17 +37,61 @@ public class GameController : MonoBehaviour
 
 	public void go() {
 
+		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("QuestionBall")) {
+			QuestionBall q = obj.GetComponent<QuestionBall>();
+			if (q.question.verify (answer)) {
+				clear();
+				StartCoroutine(delayDestroy (obj));
+				return;
+			}
+		}
+		badAnswer ();
+
 	}
 
 	public void hint() {
+		showAnswer ();
+		StartCoroutine (backToQuestion ());
+	}
+
+
+	private IEnumerator backToQuestion() {
+		yield return new WaitForSeconds (1);
+		showQuestion ();
+	}
+
+	private void showAnswer() {
+		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("QuestionBall")) {
+			QuestionBall q = obj.GetComponent<QuestionBall>();
+			foreach(TextMeshProUGUI text in obj.GetComponentsInChildren<TextMeshProUGUI> ())
+					text.SetText (q.question.answer.ToString ());
+		}
+	}
+	private void showQuestion() {
+		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("QuestionBall")) {
+			QuestionBall q = obj.GetComponent<QuestionBall>();
+			foreach(TextMeshProUGUI text in obj.GetComponentsInChildren<TextMeshProUGUI> ())
+				text.SetText (q.question.question.ToString ());
+		}
+	}
+
+	private void badAnswer() {
+		Debug.Log ("Bad answer");
+		clear ();
+	}
+
+	private IEnumerator delayDestroy(GameObject gameObj) {
+		//set background color or sound
+		yield return new WaitForSeconds(1);
+		Destroy (gameObj);
 	}
 	/*** End of Keyboard control ***/
 
 	public void generateQuestionBall ()
 	{
-		Debug.Log ("Generating a new question");
+//		Debug.Log ("Generating a new question");
 		Vector3 startPoint = new Vector3 (UnityEngine.Random.Range (-300f, 400f), -1000f, 7);
-		Debug.Log ("Starting point x " + startPoint.x + ", y " + startPoint.y);
+//		Debug.Log ("Starting point x " + startPoint.x + ", y " + startPoint.y);
 		GameObject go = Instantiate (questionBallPrefab, startPoint, Quaternion.Euler (new Vector3 (0, 0, 0))) as GameObject;
 		go.transform.SetParent (GameObject.FindGameObjectWithTag ("Canvas").transform, false);
 		go.transform.localPosition = startPoint;

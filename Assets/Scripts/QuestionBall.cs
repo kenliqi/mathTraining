@@ -26,8 +26,8 @@ public class QuestionBall : MonoBehaviour {
 
 	private void updateText(string newText) {
 		TextMeshProUGUI[] text = transform.GetComponentsInChildren<TextMeshProUGUI> ();
-		Debug.Log ("Question on the Ball" + newText);
-		Debug.Log ("The child text component is null? " + text.Length);
+//		Debug.Log ("Question on the Ball" + newText);
+//		Debug.Log ("The child text component is null? " + text.Length);
 		text[0].text = newText;
 		fitText (newText);
 	}
@@ -37,7 +37,7 @@ public class QuestionBall : MonoBehaviour {
 		speed = Random.Range(6f, 20f);
 		transform.name = "QuestionBall";
 		showQuestion ();
-		Debug.Log ("Start droping the ball");
+//		Debug.Log ("Start droping the ball");
 	}
 
 	void Update() {
