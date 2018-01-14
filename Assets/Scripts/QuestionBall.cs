@@ -8,6 +8,7 @@ public class QuestionBall : MonoBehaviour {
 	private float speed;							//movement speed (the faster, the harder)
 	private float destroyThreshold = 1000f;			//if position is passed this value, the game is over.
 	private static float gravity = 10f;
+	public AudioClip deadAudio;
 
 	public Question question = QuestionFactory.generate();
 
@@ -52,7 +53,15 @@ public class QuestionBall : MonoBehaviour {
 		//check for possible gameover
 		if (rectTransform.position.y > destroyThreshold) {
 //			GameController.gameOver = true;
+			playSfx(deadAudio);
 			Destroy(gameObject);
 		}
 	}
+
+	void playSfx(AudioClip _sfx) {
+		GetComponent<AudioSource>().clip = _sfx;
+		Debug.Log ("Play sound " + GetComponent<AudioSource> ());
+		if(!GetComponent<AudioSource>().isPlaying)
+			GetComponent<AudioSource>().Play();
+	}	
 }

@@ -6,12 +6,14 @@ using TMPro;
 public class GameController : MonoBehaviour
 {
 
-	public int questionCloneDelay = 3;
+	public float questionCloneDelay = 3;
+	private float speedUp = 1.2f;
 	public GameObject questionBallPrefab;
 	public TextMeshProUGUI answerTxt;
 	public TextMeshProUGUI scoreTxt;
 	private long answer;
 	private int score = 0;
+	public AudioClip ballExplodeSfx;
 
 	/*** Keyboard control ***/
 	private void refreshAnswer ()
@@ -41,9 +43,11 @@ public class GameController : MonoBehaviour
 		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("QuestionBall")) {
 			QuestionBall q = obj.GetComponent<QuestionBall>();
 			if (q.question.verify (answer)) {
+				playSfx (ballExplodeSfx);
 				scoreTxt.text = (++score).ToString();
 				clear();
-				StartCoroutine(delayDestroy (obj));
+				Destroy (obj);
+//				StartCoroutine(delayDestroy (obj));
 				return;
 			}
 		}
@@ -89,14 +93,19 @@ public class GameController : MonoBehaviour
 	}
 	/*** End of Keyboard control ***/
 
+	private void nextLevel() {
+		questionCloneDelay /= speedUp;
+	}
+
 	public void generateQuestionBall ()
 	{
 //		Debug.Log ("Generating a new question");
-		Vector3 startPoint = new Vector3 (UnityEngine.Random.Range (-300f, 400f), -1000f, 7);
+		Vector3 startPoint = new Vector3 (UnityEngine.Random.Range (-300f, 400f), -400f, -100);
 //		Debug.Log ("Starting point x " + startPoint.x + ", y " + startPoint.y);
 		GameObject go = Instantiate (questionBallPrefab, startPoint, Quaternion.Euler (new Vector3 (0, 0, 0))) as GameObject;
-		go.transform.SetParent (GameObject.FindGameObjectWithTag ("Canvas").transform, false);
+		go.transform.SetParent (GameObject.FindGameObjectWithTag ("BallArea").transform, false);
 		go.transform.localPosition = startPoint;
+		go.layer = 0;
 
 	}
 
@@ -111,7 +120,7 @@ public class GameController : MonoBehaviour
 
 	private IEnumerator enableQuestionGeneration ()
 	{
-		yield return new WaitForSeconds (questionCloneDelay);
+		yield return new WaitForSecondsRealtime (questionCloneDelay);
 		allowGeneratingQuestion = true;
 	}
 	
@@ -124,4 +133,11 @@ public class GameController : MonoBehaviour
 			StartCoroutine (enableQuestionGeneration ());
 		}
 	}
+
+	void playSfx(AudioClip _sfx) {
+		Debug.Log ("Ball Exploded!");
+		GetComponent<AudioSource>().clip = _sfx;
+		if(!GetComponent<AudioSource>().isPlaying)
+			GetComponent<AudioSource>().Play();
+	}	
 }
