@@ -116,7 +116,7 @@ public class GameController : MonoBehaviour
 	public void generateQuestionBall ()
 	{
 //		Debug.Log ("Generating a new question");
-		Vector3 startPoint = new Vector3 (UnityEngine.Random.Range (-100f, 700f), 100f, -100);
+		Vector3 startPoint = new Vector3 (UnityEngine.Random.Range (-100f, 200f), -0f, 0);
 //		Debug.Log ("Starting point x " + startPoint.x + ", y " + startPoint.y);
 		GameObject go = Instantiate (questionBallPrefab, startPoint, Quaternion.Euler (new Vector3 (0, 0, 0))) as GameObject;
 		go.transform.SetParent (GameObject.FindGameObjectWithTag ("BallArea").transform, false);
@@ -145,9 +145,13 @@ public class GameController : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 	{
-		if (allowGeneratingQuestion || openQuestions () <= 0) {
+
+		if (GlobalSettings.isDead) {
+			//show game over screen and score
+
+		} else if (allowGeneratingQuestion || openQuestions () <= 0) {
 			//User quick answer to spawn a new question
 			if (!allowGeneratingQuestion)
 				speedupCnt++;

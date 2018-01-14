@@ -51,11 +51,11 @@ public class QuestionBall : MonoBehaviour {
 
 		//Debug.Log("New position " + rectTransform.position);
 		//check for possible gameover
-		if (rectTransform.position.y > destroyThreshold) {
-//			GameController.gameOver = true;
-			playSfx(deadAudio);
-			Destroy(gameObject, .3f);
-		}
+//		if (rectTransform.position.y > destroyThreshold) {
+////			GameController.gameOver = true;
+//			playSfx(deadAudio);
+//			Destroy(gameObject, .3f);
+//		}
 	}
 
 	void playSfx(AudioClip _sfx) {
