@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
 	private long answer;
 	private int score = 0;
 	public AudioClip ballExplodeSfx;
+	private int speedupCnt = 0;
 
 	/*** Keyboard control ***/
 	private void refreshAnswer ()
@@ -33,19 +34,26 @@ public class GameController : MonoBehaviour
 		answer = 0;
 	}
 
-	public void inverseSign() {
+	public void inverseSign ()
+	{
 		answer = answer * -1;
 		refreshAnswer ();
 	}
 
-	public void go() {
+	public int openQuestions ()
+	{
+		return GameObject.FindGameObjectsWithTag ("QuestionBall").Length;
+	}
+
+	public void go ()
+	{
 
 		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("QuestionBall")) {
-			QuestionBall q = obj.GetComponent<QuestionBall>();
+			QuestionBall q = obj.GetComponent<QuestionBall> ();
 			if (q.question.verify (answer)) {
 				playSfx (ballExplodeSfx);
-				scoreTxt.text = (++score).ToString();
-				clear();
+				scoreTxt.text = (++score).ToString ();
+				clear ();
 				Destroy (obj);
 //				StartCoroutine(delayDestroy (obj));
 				return;
@@ -55,52 +63,60 @@ public class GameController : MonoBehaviour
 
 	}
 
-	public void hint() {
+	public void hint ()
+	{
 		showAnswer ();
 		StartCoroutine (backToQuestion ());
 	}
 
 
-	private IEnumerator backToQuestion() {
+	private IEnumerator backToQuestion ()
+	{
 		yield return new WaitForSeconds (1);
 		showQuestion ();
 	}
 
-	private void showAnswer() {
+	private void showAnswer ()
+	{
 		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("QuestionBall")) {
-			QuestionBall q = obj.GetComponent<QuestionBall>();
-			foreach(TextMeshProUGUI text in obj.GetComponentsInChildren<TextMeshProUGUI> ())
-					text.SetText (q.question.answer.ToString ());
+			QuestionBall q = obj.GetComponent<QuestionBall> ();
+			foreach (TextMeshProUGUI text in obj.GetComponentsInChildren<TextMeshProUGUI> ())
+				text.SetText (q.question.answer.ToString ());
 		}
 	}
-	private void showQuestion() {
+
+	private void showQuestion ()
+	{
 		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("QuestionBall")) {
-			QuestionBall q = obj.GetComponent<QuestionBall>();
-			foreach(TextMeshProUGUI text in obj.GetComponentsInChildren<TextMeshProUGUI> ())
+			QuestionBall q = obj.GetComponent<QuestionBall> ();
+			foreach (TextMeshProUGUI text in obj.GetComponentsInChildren<TextMeshProUGUI> ())
 				text.SetText (q.question.question.ToString ());
 		}
 	}
 
-	private void badAnswer() {
+	private void badAnswer ()
+	{
 		Debug.Log ("Bad answer");
 		clear ();
 	}
 
-	private IEnumerator delayDestroy(GameObject gameObj) {
+	private IEnumerator delayDestroy (GameObject gameObj)
+	{
 		//set background color or sound
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds (1);
 		Destroy (gameObj);
 	}
 	/*** End of Keyboard control ***/
 
-	private void nextLevel() {
+	private void nextLevel ()
+	{
 		questionCloneDelay /= speedUp;
 	}
 
 	public void generateQuestionBall ()
 	{
 //		Debug.Log ("Generating a new question");
-		Vector3 startPoint = new Vector3 (UnityEngine.Random.Range (-300f, 400f), -400f, -100);
+		Vector3 startPoint = new Vector3 (UnityEngine.Random.Range (-300f, 400f), -200f, -100);
 //		Debug.Log ("Starting point x " + startPoint.x + ", y " + startPoint.y);
 		GameObject go = Instantiate (questionBallPrefab, startPoint, Quaternion.Euler (new Vector3 (0, 0, 0))) as GameObject;
 		go.transform.SetParent (GameObject.FindGameObjectWithTag ("BallArea").transform, false);
@@ -121,23 +137,31 @@ public class GameController : MonoBehaviour
 	private IEnumerator enableQuestionGeneration ()
 	{
 		yield return new WaitForSecondsRealtime (questionCloneDelay);
-		allowGeneratingQuestion = true;
+		//user speed is faster than we generate the question, we ignore this schedule generation as user's quick action has already generated this question
+		if (speedupCnt > 0)
+			speedUp--;
+		else
+			allowGeneratingQuestion = true;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (allowGeneratingQuestion) {
+		if (allowGeneratingQuestion || openQuestions () <= 0) {
+			//User quick answer to spawn a new question
+			if (!allowGeneratingQuestion)
+				speedupCnt++;
 			allowGeneratingQuestion = false;
 			generateQuestionBall ();
 			StartCoroutine (enableQuestionGeneration ());
 		}
 	}
 
-	void playSfx(AudioClip _sfx) {
+	void playSfx (AudioClip _sfx)
+	{
 		Debug.Log ("Ball Exploded!");
-		GetComponent<AudioSource>().clip = _sfx;
-		if(!GetComponent<AudioSource>().isPlaying)
-			GetComponent<AudioSource>().Play();
-	}	
+		GetComponent<AudioSource> ().clip = _sfx;
+		if (!GetComponent<AudioSource> ().isPlaying)
+			GetComponent<AudioSource> ().Play ();
+	}
 }

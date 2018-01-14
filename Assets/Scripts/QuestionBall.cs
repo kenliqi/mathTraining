@@ -54,7 +54,7 @@ public class QuestionBall : MonoBehaviour {
 		if (rectTransform.position.y > destroyThreshold) {
 //			GameController.gameOver = true;
 			playSfx(deadAudio);
-			Destroy(gameObject);
+			Destroy(gameObject, .3f);
 		}
 	}
 

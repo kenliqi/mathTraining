@@ -278,7 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8da7a76489c114e97983d75092d3b30c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadAudio: {fileID: 8300000, guid: 6314e16275fe544828669bfa540491ae, type: 3}
+  deadAudio: {fileID: 8300000, guid: c8cda21c9d1da4ba09183c81582ddcef, type: 3}
 --- !u!222 &222081057166362916
 CanvasRenderer:
   m_ObjectHideFlags: 1

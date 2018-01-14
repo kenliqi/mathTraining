@@ -16,6 +16,8 @@ public class GlobalSettings : MonoBehaviour {
 	public static bool hasMul = false;
 	public static bool hasDiv = false;
 
+	public static bool isDead = false;
+
 	public void updateQuestionInterval(int newInterval) {
 		questionsInterval = newInterval;
 	}
