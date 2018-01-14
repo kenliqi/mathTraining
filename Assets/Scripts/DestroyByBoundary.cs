@@ -5,6 +5,13 @@ using UnityEngine;
 public class DestroyByBoundary : MonoBehaviour {
 	public AudioClip deadAudio;
 
+	void Start() {
+		//BoxCollider collider = GetComponent<BoxCollider>();
+		//MeshRenderer renderer = GetComponent<MeshRenderer>();
+		//collider.center = GetComponent<Renderer>().bounds.center;
+		//collider.size = GetComponent<Renderer>().bounds.size;
+		
+	}
 	void OnTriggerExit(Collider other)
 	{
 		playSfx (deadAudio);

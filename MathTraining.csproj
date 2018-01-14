@@ -231,10 +231,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\OptionsController.cs" />
+    <Compile Include="Assets\Scripts\DestroyByBoundary.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\GlobalSettings.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\OptionsController.cs" />
     <Compile Include="Assets\Scripts\PrimeNumbers.cs" />
     <Compile Include="Assets\Scripts\QTree.cs" />
     <Compile Include="Assets\Scripts\QTreeBuilder.cs" />
