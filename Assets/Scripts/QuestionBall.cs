@@ -6,7 +6,7 @@ using TMPro;
 public class QuestionBall : MonoBehaviour {
 
 	private float speed;							//movement speed (the faster, the harder)
-	private float destroyThreshold = 1000f;			//if position is passed this value, the game is over.
+	private float destroyThreshold = 2000f;			//if position is passed this value, the game is over.
 	private static float gravity = 10f;
 	public AudioClip deadAudio;
 

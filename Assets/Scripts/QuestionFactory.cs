@@ -37,13 +37,13 @@ public class QuestionFactory
 		}
 
 
-		Debug.Log (questionStr);
+		//Debug.Log (questionStr);
 		QTree root = QTreeBuilder.build (opdNodes, oprNodes);
 		int rightAnswer = (int)root.evaluate ();
 		Question question = new Question (questionStr, rightAnswer);
 
 
-		Debug.Log ("The correct answer is " + question.answer.ToString ());
+		//Debug.Log ("The correct answer is " + question.answer.ToString ());
 		return question;
 
 	}

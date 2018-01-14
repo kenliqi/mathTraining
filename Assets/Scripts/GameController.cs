@@ -116,7 +116,7 @@ public class GameController : MonoBehaviour
 	public void generateQuestionBall ()
 	{
 //		Debug.Log ("Generating a new question");
-		Vector3 startPoint = new Vector3 (UnityEngine.Random.Range (-300f, 400f), -200f, -100);
+		Vector3 startPoint = new Vector3 (UnityEngine.Random.Range (-100f, 700f), 100f, -100);
 //		Debug.Log ("Starting point x " + startPoint.x + ", y " + startPoint.y);
 		GameObject go = Instantiate (questionBallPrefab, startPoint, Quaternion.Euler (new Vector3 (0, 0, 0))) as GameObject;
 		go.transform.SetParent (GameObject.FindGameObjectWithTag ("BallArea").transform, false);
@@ -136,7 +136,7 @@ public class GameController : MonoBehaviour
 
 	private IEnumerator enableQuestionGeneration ()
 	{
-		yield return new WaitForSecondsRealtime (questionCloneDelay);
+		yield return new WaitForSeconds(questionCloneDelay);
 		//user speed is faster than we generate the question, we ignore this schedule generation as user's quick action has already generated this question
 		if (speedupCnt > 0)
 			speedUp--;
