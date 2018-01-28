@@ -52,7 +52,11 @@ public class GameController : MonoBehaviour
 			QuestionBall q = obj.GetComponent<QuestionBall> ();
 			if (q.question.verify (answer)) {
 				playSfx (ballExplodeSfx);
-				scoreTxt.text = (++score).ToString ();
+				score += q.question.score;
+				scoreTxt.text = (score).ToString ();
+
+				Debug.Log (q.question.explaination + ", Score " + q.question.score);
+
 				clear ();
 				Destroy (obj);
 //				StartCoroutine(delayDestroy (obj));

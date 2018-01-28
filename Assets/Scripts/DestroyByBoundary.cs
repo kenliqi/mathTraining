@@ -27,4 +27,11 @@ public class DestroyByBoundary : MonoBehaviour {
 		if (!GetComponent<AudioSource> ().isPlaying)
 			GetComponent<AudioSource> ().Play ();
 	}
+
+	void showResult() {
+		GameObject canvas = GameObject.FindGameObjectWithTag ("BallArea");
+		GameObject gameOverCanvas = GameObject.FindGameObjectWithTag ("GameOver");
+		canvas.SetActive (false);
+		gameOverCanvas.SetActive (true);
+	}
 }

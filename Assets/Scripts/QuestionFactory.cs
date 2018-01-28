@@ -40,7 +40,11 @@ public class QuestionFactory
 		//Debug.Log (questionStr);
 		QTree root = QTreeBuilder.build (opdNodes, oprNodes);
 		int rightAnswer = (int)root.evaluate ();
-		Question question = new Question (questionStr, rightAnswer);
+
+		int score = getScore (root);
+		string explaination = getExplaination (root);
+		Debug.Log ("Explaination " + explaination + ", " + score);
+		Question question = new Question (questionStr, rightAnswer, score, explaination);
 
 
 		//Debug.Log ("The correct answer is " + question.answer.ToString ());
@@ -48,7 +52,92 @@ public class QuestionFactory
 
 	}
 
+	/*
+5 + 6 * 3 / 2 - 3
+=5 + 18 / 2 - 3
+=5 + 9 -3
+=14 - 3
+=11
+	 *  BFS to a stack, then pop out
+	 * 
+	 */
 
+
+	private static string getExplaination(QTree root) {
+		Stack<string> exp = new Stack<string> ();
+		//bfs
+		Stack<QTreeExt> nodes = new Stack<QTreeExt>();
+		nodes.Push (new QTreeExt(root, false));
+		while (nodes.Count > 0) {
+			Stack<QTreeExt> nextLevel = new Stack<QTreeExt> ();
+			string levelRes = "";
+			while (nodes.Count > 0) {
+				QTreeExt qt = nodes.Pop ();
+				if (qt.isVisited) {
+					levelRes += QTree.getOperatorStr(qt.type);
+				} else {
+					levelRes += qt.evaluate();
+					if (qt.left != null && qt.right != null) {
+						nextLevel.Push (new QTreeExt(qt.left, false));
+						nextLevel.Push (new QTreeExt(qt, true)); //make sure we don't visit this again
+							nextLevel.Push (new QTreeExt(qt.right, false));
+					}
+				}
+
+			}
+			nodes = nextLevel;
+			exp.Push (levelRes);
+		}
+
+		//pop the result stack
+		string result = " ";
+		while (exp.Count > 0) {
+			result += exp.Pop ();
+			result += "\n=";
+		}
+
+		return result;
+	}
+
+
+	private static string getOperatorStr(QTree.Type type) {
+		switch (type) {
+		case QTree.Type.Add:
+			return "+";
+		case QTree.Type.Sub:
+			return "-";
+		case QTree.Type.Mul:
+			return "*";
+		case QTree.Type.Div:
+			return "/";
+		}
+		return "";
+	}
+
+
+	private static int getOperatorScore(QTree.Type type) {
+		switch(type) {
+		case QTree.Type.Add:
+		case QTree.Type.Sub:
+			return 1;
+		case QTree.Type.Mul:
+			return 2;
+		case QTree.Type.Div:
+			return 3;
+		}
+		return 1;
+	}
+	private static int getScore(QTree root){
+		if (root.type == null || root.type == QTree.Type.Null) {
+			return (int) (root.value / 20) + 1; //every 20, the score is increase by 1
+		} else {
+			int oprScore = getOperatorScore (root.type);
+			int leftScore = getScore (root.left);
+			int rightScore = getScore (root.right);
+			return oprScore * (leftScore + rightScore);
+		}
+
+	}
 	private static int getPrevDiv(List<RandNode> operators, List<RandNode> operands, int i) {
 		int num = operands [i].number;
 		if (i == 0 || operators [i - 1].type != QTree.Type.Div)

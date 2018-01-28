@@ -19,6 +19,12 @@ public class QTree
 
 	public Type type;
 
+	public double result;
+
+	public QTree() {
+
+	}
+
 	public QTree(double value, Type type, QTree left, QTree right) {
 		this.value = value;
 		this.type = type;
@@ -60,6 +66,13 @@ public class QTree
 		this.type = Type.Null;
 		this.left = null;
 		this.right = null;
+	}
+
+	public double getResult() {
+		if (result == null) {
+			result = evaluate ();
+		}
+		return result;
 	}
 	//Evaluate the question tree to get the answer
 	public double evaluate() {

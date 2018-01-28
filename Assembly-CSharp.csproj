@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\PrimeNumbers.cs" />
      <Compile Include="Assets\Scripts\QTree.cs" />
      <Compile Include="Assets\Scripts\QTreeBuilder.cs" />
+     <Compile Include="Assets\Scripts\QTreeExt.cs" />
      <Compile Include="Assets\Scripts\Question.cs" />
      <Compile Include="Assets\Scripts\QuestionBall.cs" />
      <Compile Include="Assets\Scripts\QuestionFactory.cs" />
